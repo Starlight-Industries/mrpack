@@ -1,0 +1,26 @@
+[package]
+version = "0.1.0"
+edition = "2021"
+name = "mrpack"
+
+[lib]
+doctest = false
+
+[dependencies]
+compile_warning = "0.1"
+serde_json = { version = "1", default-features = false }
+hashbrown = { version = "0.14", features = ["serde"], optional = true }
+serde = { version = "1", default-features = false, features = ["derive"] }
+ureq = { version = "2", optional = true }
+url = { version = "2", features = ["serde"], optional = true }
+zip = { version = "2", default-features = false, features = [
+  "deflate",
+], optional = true }
+
+[features]
+default = ["std", "url", "fs"]
+resolve = ["dep:ureq"]
+alloc = ["dep:hashbrown", "serde_json/alloc", "serde/alloc"]
+std = ["serde_json/std", "serde/std"]
+url = ["dep:url"]
+fs = ["dep:zip"]
