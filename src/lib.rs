@@ -112,7 +112,7 @@ pub struct ModrinthFile {
     /// - raw.githubusercontent.com
     /// - gitlab.com
     pub downloads: Vec<String>,
-    pub file_size: u128,
+    pub file_size: u64,
 }
 
 pub struct Bytes(pub Vec<u8>);
@@ -128,7 +128,7 @@ impl core::fmt::Debug for Bytes {
 /// The Modrinth modpack format (.mrpack) is a simple format that lets you store modpacks. This is the only format of modpack that can be uploaded to Modrinth.
 pub struct ModrinthModpack {
     /// The version of the format, stored as a number. The current value at the time of writing is 1.
-    pub format_version: u128,
+    pub format_version: u64,
     /// The game of the modpack, stored as a string. The only available type is minecraft.
     pub game: GameType,
     /// A unique identifier for this specific version of the modpack.
