@@ -26,7 +26,7 @@ use {
 	serde_json::{ser::PrettyFormatter, Serializer},
 	std::{
 		fs::File as StdFile,
-		io::{BufReader, BufWriter, Error, ErrorKind, Read, Result, Seek, Write},
+		io::{copy, BufReader, BufWriter, Error, ErrorKind, Read, Result, Seek, Write},
 		path::{Path, PathBuf},
 		string::ToString,
 	},
@@ -221,7 +221,7 @@ impl Modpack {
 		archive.write(&index)?;
 		for (path, content) in self.filesystem.iter() {
 			archive.start_file_from_path(path, options)?;
-			archive.write(&content)?;
+			copy(&mut &content[..], &mut archive)?;
 		}
 		archive.finish()?;
 		Ok(())

@@ -29,9 +29,11 @@ mod filesystem {
 				modpack.to_file(&output, true, None)?;
 				println!("Checking new against original");
 				let modpack_check = Modpack::from_path(&output)?;
-				write(output.clone() + ".new", std::format!("{modpack_check:?}"))?;
-				write(output + ".old", std::format!("{modpack:?}"))?;
-				assert!(modpack_check == modpack);
+				if modpack_check != modpack {
+					write(output.clone() + ".new", std::format!("{modpack_check:?}"))?;
+					write(output + ".old", std::format!("{modpack:?}"))?;
+					panic!("Assertion failed")
+				}
 				println!("Success\n");
 				Ok(())
 			})
