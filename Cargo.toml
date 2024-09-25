@@ -10,7 +10,7 @@ doctest = false
 [dependencies]
 serde_json = { version = "1", default-features = false }
 serde = { version = "1", default-features = false, features = ["derive"] }
-ureq = { version = "2", optional = true }
+ureq = { version = "2", optional = true, default-features = false }
 zip = { version = "2", default-features = false, features = [
 	"deflate",
 ], optional = true }

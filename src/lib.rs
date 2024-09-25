@@ -172,7 +172,9 @@ impl Modpack {
 		if archive.is_empty() {
 			return Err(Error::new(ErrorKind::NotFound, "Invalid .mrpack: Empty"));
 		}
-
+		// performance consideration:
+		// replacing this with file -> copy into memory -> deserialise
+		// may help for files with realllllyyyy big indices
 		let mut index: Modpack = serde_json::from_reader(archive.by_name("modrinth.index.json")?)?;
 
 		for ref path in archive
@@ -184,7 +186,7 @@ impl Modpack {
 				continue;
 			}
 			let mut buf = Vec::new();
-			archive.by_name(path)?.read_to_end(&mut buf)?;
+			copy(&mut archive.by_name(path)?, &mut buf)?;
 			let path: PathBuf = path.into();
 			if path.extension().is_none() {
 				continue;

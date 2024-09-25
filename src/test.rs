@@ -26,7 +26,7 @@ mod filesystem {
 				let output =
 					"./target/tests/".to_owned() + path.file_name().unwrap().to_str().unwrap();
 				println!("Exporting to: {output:?}");
-				modpack.to_file(&output, true, None)?;
+				modpack.to_file(&output, true, Some(243))?;
 				println!("Checking new against original");
 				let modpack_check = Modpack::from_path(&output)?;
 				if modpack_check != modpack {
