@@ -156,7 +156,7 @@ impl Modpack {
 	/// Read a path, deserialise the .mrpack file if it exists.
 	pub fn from_path<P: AsRef<Path>>(path: P) -> Result<Self> {
 		let path = path.as_ref();
-		if path.extension().is_none_or(|ext| ext != "mrpack") {
+		if let Some(_) = path.extension().filter(|&ext| ext != "mrpack") {
 			return Err(Error::new(
 				ErrorKind::InvalidData,
 				std::format!("Path: {path:?} must have extension '.mrpack'"),

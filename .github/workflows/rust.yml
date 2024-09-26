@@ -17,4 +17,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run tests
-      run: cargo test --no-default-features --features="std,fs" --verbose -- --nocapture
+      run: cargo test --no-default-features --features="std,fs" -- --nocapture
